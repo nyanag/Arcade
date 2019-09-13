@@ -1,7 +1,7 @@
 // global var iables, able to be used in all functions
 var ballX;              // x-location of the ball
 var ballY;              // y-location of the ball
-var ballSpeedX = 5;     // speed of the ball horizontally
+var ballSpeedX = 2;     // speed of the ball horizontally
 var ballSpeedY = 2;     // speed of the ball vertically
 var paddleHeight = 30;  // height of the paddle
 var paddleColor = 100;        // color of the paddle
@@ -52,7 +52,7 @@ function checkCollide() {
 
   // paddle
   if (ballY > height-paddleHeight) { // past 'goal line'
-    if (ballX > mouseX && ballX < mouseX + 90) { // within paddle
+    if (ballX > mouseX && ballX < mouseX + 100) { // within paddle
       ballSpeedY = ballSpeedY * -1; // switch Y direction
       score++;
     } else { // end game
