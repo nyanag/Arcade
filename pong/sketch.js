@@ -1,8 +1,8 @@
 // global var iables, able to be used in all functions
 var ballX;              // x-location of the ball
 var ballY;              // y-location of the ball
-var ballSpeedX = 2;     // speed of the ball horizontally
-var ballSpeedY = 2;     // speed of the ball vertically
+var ballSpeedX = 5;     // speed of the ball horizontally
+var ballSpeedY = 5;     // speed of the ball vertically
 var paddleHeight = 30;  // height of the paddle
 var paddleColor = 100;        // color of the paddle
 var score = 0;
@@ -20,11 +20,11 @@ function setup() {
 }
 
 function draw() {
-    
+    let movedocker = constrain(mouseX, 0, 375);
     background(15,15,15); // resets the background
     moveBall();      // ball moves in X and Y directions
     checkCollide();  // checks for collision with walls or paddle
-    drawPaddle();    // re-draws paddle
+    drawPaddle(movedocker);    // re-draws paddle
     drawBall();      // re-draws ball
     fill(255);
     textSize(16);
@@ -46,13 +46,13 @@ function checkCollide() {
   }
 
   // top edge
-  if (ballY < 0) {
+  if (ballY < 40) {
     ballSpeedY = ballSpeedY * -1; // switch Y direction
   }
 
   // paddle
-  if (ballY > height-paddleHeight) { // past 'goal line'
-    if (ballX > mouseX && ballX < mouseX + 100) { // within paddle
+  if (ballY > height-paddleHeight-25) { // past 'goal line'
+    if (ballX > mouseX -60 && ballX < mouseX + 60) { // within paddle
       ballSpeedY = ballSpeedY * -1; // switch Y direction
       score++;
     } else { // end game
@@ -69,26 +69,37 @@ function drawBall() {
   rect(ballX, ballY, 20, 20);
 }
 
-function drawPaddle() {
+function drawPaddle(movedocker) {
   stroke(paddleColor); // color of paddle border
   strokeWeight(4); // border thickness of 4px
-  image(docker, mouseX, height-paddleHeight-25, 60, 60);
+  image(docker, movedocker, height-paddleHeight-25, 60, 60);
 
-  // y-value is always at the bottom, minus height of paddle, minus border of paddle
-//   rect(mouseX, height-paddleHeight-4, 200, paddleHeight);
+
+  // if(mouseX>width){
+  //   mouseX = 0;
+  //   console.log('out');
+  // }
+  // if(mouseX<0){
+  //     mouseX = width;
+  //     console.log('in');
+  // }
+
+// y-value is always at the bottom, minus height of paddle, minus border of paddle
+  // rect(mouseX, height-paddleHeight-4, 200, paddleHeight);
+  // rect(mouseX, height-paddleHeight-25, 60, paddleHeight);
 }
 
-function mousePressed() {
+// function mousePressed() {
   // takes the values of mouseX between 0 and width and scales between 0-255
-  paddleColor = map(mouseX, 0, width, 0, 255);
-}
+  // paddleColor = map(mouseX, 0, width, 0, 255);
+// }
 
-function keyPressed() {
-  // changes ball/paddle to black/white
-    if (key == 'b' || key == 'B') {
-    fill(0);
-  }
-  if (key == 'w' || key == 'W') {
-    fill(255);
-  }
-}
+// function keyPressed() {
+// changes ball/paddle to black/white
+//     if (key == 'b' || key == 'B') {
+//     fill(0);
+//   }
+//   if (key == 'w' || key == 'W') {
+//     fill(255);
+//   }
+// }
